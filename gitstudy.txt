@@ -53,4 +53,4 @@ git checkout -b localBranch origin/remoteBranch，这样新建的本地分支名
 译者注: origin一般是指原始仓库地址的别名.
 你可以在使用'git branch'命令时加上'--track'参数, 来手动创建一个'追踪分支'.
 git branch --track experimental origin/experimental
-te
+git branch -r //查看远程分支
