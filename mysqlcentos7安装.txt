@@ -1,0 +1,77 @@
+1.安装cmake编译器 ，  地址：https://blog.csdn.net/john_chang11/article/details/51593220
+   下载cmake源码：cmake-3.11.2.tar.gz
+   1.1安装cmake依赖            yum -y install make zlib zlib-devel  安装解压库
+     yum install make gcc-c++ libtool
+    1.2：./bootstrap
+     1.3：gmake
+     1.3：gmake install
+    安装成功
+2.安装mysql   好的网站：https://blog.csdn.net/nowzhangjunzhe/article/details/83687521
+   2.1 源码地址：wget https://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.41.tar.gz
+   2.2 安装mysql依赖：yum install -y make  openssl openssl-devel ncurses-devel    没安装出错网站：https://blog.csdn.net/gua___gua/article/details/49764395
+   2.3 创建mysql用户：groupadd mysql      用户添加到组：useradd -r -g mysql -s /bin/false mysql   
+   -r：系统用户
+   -g：用户属组
+   -s：用户shell，/bin/false表示用户不能登录系统，与/bin/nologin相同
+  2.4:编译mysql源码
+cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+ -DMYSQL_DATADIR=/usr/local/mysql/data \
+ -DMYSQL_UNIX_ADDR=/usr/local/mysql/tmp/mysql.sock \
+ -DDEFAULT_CHARSET=utf8 \
+ -DDEFAULT_COLLATION=utf8_general_ci \
+ -DWITH_EXTRA_CHARSETS=all \
+ -DWITH_INNOBASE_STORAGE_ENGINE=1 \
+ -DWITH_FEDERATED_STORAGE_ENGINE=1 \
+ -DWITH_BLACKHOLE_STORAGE_ENGINE=1 \
+ -DWITHOUT_EXAMPLE_STORAGE_ENGINE=1 \
+ -DWITH_ZLIB=bundled -DWITH_SSL=bundled \
+ -DENABLED_LOCAL_INFILE=1 \
+ -DWITH_EMBEDDED_SERVER=1 \
+ -DENABLE_DOWNLOADS=1 \
+ -DWITH_DEBUG=0 
+ 2.5：安装mysql
+    make && make install
+3.初始化mysql
+  3.1:复制my.cnf文件到 /etc/my.cnf
+  3.2: ./scripts/mysql_install_db --basedir=/usr/local/mysql/ --datadir=/usr/local/mysql/data --user=mysql
+   网站：https://blog.csdn.net/xiaofeiqaq/article/details/81431080
+  3.3：chown -R mysql.mysql /usr/local/mysql*
+  3.4：cp mysql.server /etc/init.d/mysqld
+chmod +x /etc/init.d/mysqld
+加入到系统服务
+chkconfig --add mysqld
+开机自启动
+chkconfig mysqld on
+4：错误处理：
+mkdir /var/log/mariadb
+touch /var/log/mariadb/mariadb.log
+chown -R mysql:mysql /var/log/mariadb/
+mkdir /var/lib/mysql
+chown -R mysql:mysql /var/lib/mysql
+my.cnf 改变dirdata路径 和 /usr/local/mysql/tmp/mysql.sock路径
+5.启动mysql
+service mysqld start
+6.设置root密码
+./bin/mysqladmin -u root password 123456
+7.打开端口
+firewall-cmd --zone=public --add-port=3306/tcp --permanent
+firewall-cmd --reload
+8.开启远程连接
+grant all privileges on *.* to 'root' identified by 'tanji661776';
+flush privileges;
+
+需要的网址：
+https://blog.csdn.net/gua___gua/article/details/49764395
+https://www.cnblogs.com/ityunv/p/5909485.html
+
+https://blog.csdn.net/john_chang11/article/details/51593220
+https://blog.csdn.net/nowzhangjunzhe/article/details/83687521
+https://blog.csdn.net/xiaofeiqaq/article/details/81431080
+https://blog.csdn.net/u012328159/article/details/80136987  问题很好的
+https://blog.csdn.net/ownbull/article/details/80461202 安装cmake
+https://cmake.org/download/
+好的安装nginx 网址
+http://www.jfinal.com/share/1622
+ico图片生成
+http://ico.duduxuexi.com/
+
