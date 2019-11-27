@@ -1,4 +1,4 @@
-1.安装cmake编译器 ，  地址：https://blog.csdn.net/john_chang11/article/details/51593220
+﻿1.安装cmake编译器 ，  地址：https://blog.csdn.net/john_chang11/article/details/51593220
    下载cmake源码：cmake-3.11.2.tar.gz
    1.1安装cmake依赖            yum -y install make zlib zlib-devel  安装解压库
      yum install make gcc-c++ libtool
@@ -75,3 +75,10 @@ http://www.jfinal.com/share/1622
 ico图片生成
 http://ico.duduxuexi.com/
 
+暖风加微信
+13998475189
+我的微信
+
+mysqldump -uroot -pjsdofjwe12311 xiushuiw > /dev/shm/xiushuiw_$(date +%Y%m%d_%H%M%S).sql
+mysqldump -uroot -pjsdofjwe12311 xsn > /dev/shm/xsn_$(date +%Y%m%d_%H%M%S).sql
+mysqldump -uroot -pjsdofjwe12311 xiushuigi > /dev/shm/xiushuigi_$(date +%Y%m%d_%H%M%S).sql
