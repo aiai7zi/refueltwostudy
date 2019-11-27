@@ -60,3 +60,7 @@ github上建立分支
 3.执行 git push origin test  //origin 是远程分支  test 是自己建的分支 
 看到 [new branch]      testbranch -> testbranch
 说明已创建
+github删除分支
+1.删除要删除的本地分支
+2.执行 git push origin :testbranch //origin 远程分支的master分支    :testbranch 是要删除的远程分支
+创建分支网址：https://blog.csdn.net/hcjsjqjssm/article/details/84558229
