@@ -54,3 +54,9 @@ git checkout -b localBranch origin/remoteBranch，这样新建的本地分支名
 你可以在使用'git branch'命令时加上'--track'参数, 来手动创建一个'追踪分支'.
 git branch --track experimental origin/experimental
 git branch -r //查看远程分支
+github上建立分支
+1.创建新的分支
+2.进入新的分支
+3.执行 git push origin test  //origin 是远程分支  test 是自己建的分支 
+看到 [new branch]      testbranch -> testbranch
+说明已创建
