@@ -9,3 +9,20 @@ git remote add origin https://github.com/aiai7zi/refueltwostudy.git
 git push -u origin master
 git hash-object -w xx.txt //查看提交的hash对象
 git cat-file -p <提交对象> //查看提交对象的值
+git rm --cached //删除缓存区文件
+git push --set-upstream origin master //创建远程仓库分支，必须有上游分支
+git rm --cached tartget -r //-r清除文件夹下的所有缓存
+git branch //查看分支
+git branch -avv //查看远程分支
+git checkout origin/master //切换到远程分支
+git branch -a //查看所有分支
+git branch -av //查看所有分支详细信息
+git branch -avv //本地信息和远程分支关联信息
+创建分支
+1.基于当前分支创建一个新分支
+2.基于远程分支创建一个新分支
+3.基于一个提交创建一个新分支
+4.基于Tag创建一个新分支
+git branch dev //创建dev分支
+git branch test dev //dev分支下再创建test分支
+git branch test2 origin/master //基于远程分支创建test2分支
