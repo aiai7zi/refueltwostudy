@@ -7,3 +7,5 @@ git push -u origin master
 …or push an existing repository from the command line
 git remote add origin https://github.com/aiai7zi/refueltwostudy.git
 git push -u origin master
+git hash-object -w xx.txt //查看提交的hash对象
+git cat-file -p <提交对象> //查看提交对象的值
