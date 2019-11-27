@@ -32,3 +32,4 @@ git checkout <branch name> //切换分支
 git merge <merge target> //合并分支 #如果因冲突导致自动合并失败，此时status为mergeing状态
 #需要手动修改后重新提交
 git branch -d rm a //删除a分支和rm分支
+git remote -vv //查看远程地址
