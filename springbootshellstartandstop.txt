@@ -1,0 +1,32 @@
+# example: sh start.sh -Dspring.profiles.active=dev  
+program_name=helloWorld  
+JAVA_OPTS="-Duser.timezone=GMT+8 -server -Xms2048m -Xmx2048m -Dspring.profiles.active=test"  
+JAVA_OPTS="$JAVA_OPTS $@"  
+  
+nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar helloWorld-0.0.1.jar >/dev/null 2>&1 &  
+pid=$!  
+exit_code=$?  
+echo $pid > PID  
+  
+echo "pid: $pid"  
+  
+if [ $exit_code -eq 0 ];  
+then  
+    echo "execute $program_name successfully!"  
+else  
+    echo "execute $program_name failed!"  
+fi  
+ 
+ 
+#! /bin/bash  
+program_name=helloWorld  
+pid=`cat PID`  
+echo "start to kill pid:$pid"   
+kill $pid  
+if [ $? -eq 0 ];  
+then  
+    echo "shutdown $program_name successfully!"  
+else  
+    echo "shutdown $program_name failed!"  
+fi 
+chmod 754 sbstop.sh
