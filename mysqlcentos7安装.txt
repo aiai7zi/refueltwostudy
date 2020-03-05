@@ -82,3 +82,6 @@ http://ico.duduxuexi.com/
 mysqldump -uroot -pjsdofjwe12311 xiushuiw > /dev/shm/xiushuiw_$(date +%Y%m%d_%H%M%S).sql
 mysqldump -uroot -pjsdofjwe12311 xsn > /dev/shm/xsn_$(date +%Y%m%d_%H%M%S).sql
 mysqldump -uroot -pjsdofjwe12311 xiushuigi > /dev/shm/xiushuigi_$(date +%Y%m%d_%H%M%S).sql
+
+
+https://blog.uncooperative.org/blog/2014/02/06/the-efi-system-partition/
