@@ -1,0 +1,186 @@
+公共变量  Listable( 列在单子上的)
+/** Optional id for this factory, for serialization purposes */ 这个工厂的可选id，用于序列化
+1.  private String serializationId;  //这个IOC容器的id  没有默认值  this   
+/** Whether to allow re-registration of a different definition with the same name */   是否允许用相同的名称重新注册不同的定义
+2.	private boolean allowBeanDefinitionOverriding = true;  Overriding(重写) //表示ioc容器的name可重新赋值   this
+allow(允许)
+Overriding(重写)
+/** Whether to allow eager class loading even for lazy-init beans */ 即使对于延迟初始化bean，是否允许立即加载类
+3.	private boolean allowEagerClassLoading = true;      this
+Eager(渴望)
+/** Optional OrderComparator for dependency Lists and arrays */  可选的OrderComparator，用于依赖列表和数组
+4.	private Comparator<Object> dependencyComparator;     用于排序     this
+dependency(依赖)
+Comparator(比较)
+order(排序)
+/** Resolver to use for checking if a bean definition is an autowire candidate */ 解析器，用于检查bean定义是否为自动装配候选
+5.	private AutowireCandidateResolver autowireCandidateResolver = new SimpleAutowireCandidateResolver();      this
+Resolver(解析器)
+Candidate(候选人)
+/** Map from dependency type to corresponding autowired value */ 从依赖类型映射到相应的自动获取值 $$$$
+6.	private final Map<Class<?>, Object> resolvableDependencies = new HashMap<Class<?>, Object>(16);     this
+ resolvable(adj. 可分解的；可解决的；可溶解的)
+ Dependencies(依赖性)
+/** Map of bean definition objects, keyed by bean name */  bean定义对象的映射，由bean名称键控  $$$$
+7.	private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>(64);  这个变量重要   this
+/** Map of singleton and non-singleton bean names, keyed by dependency type */  单例和非单例bean名称的映射，由依赖项类型键控
+8.	private final Map<Class<?>, String[]> allBeanNamesByType = new ConcurrentHashMap<Class<?>, String[]>(64);  这个变量不是很清楚(用于多个bean的名字) this
+/** Map of singleton-only bean names, keyed by dependency type */ 单例bean名称的映射，由依赖项类型键控
+9.	private final Map<Class<?>, String[]> singletonBeanNamesByType = new ConcurrentHashMap<Class<?>, String[]>(64); 单例的(用于多个bean的名字) this
+/** List of bean definition names, in registration order */  bean定义名称列表，按注册顺序排列
+10.	private final List<String> beanDefinitionNames = new ArrayList<String>(64);  所以定义的bean的名字 this
+/** List of names of manually registered singletons, in registration order */ 手动注册的单身人士名单，按注册顺序排列
+11.	private final Set<String> manualSingletonNames = new LinkedHashSet<String>(16);     this
+manual(手动，手册)
+/** Whether bean definition metadata may be cached for all beans */ 是否可以缓存所有bean的bean定义元数据
+12.	private boolean configurationFrozen = false;    this
+Frozen(adj. 冻结的；冷酷的 v. 结冰（freeze的过去分词）；凝固；变得刻板)
+/** Cached array of bean definition names in case of frozen configuration */ 缓存的bean定义名数组，以防冻结配置
+13.	private String[] frozenBeanDefinitionNames;  已经生成的bean的名字数组  this
+/** Strategy for creating bean instances */  用于创建bean实例的策略   
+14.	private InstantiationStrategy instantiationStrategy = new CglibSubclassingInstantiationStrategy();      org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory
+Strategy策略)
+instantiation(实例)
+/** Resolver strategy for method parameter names */  方法参数名的解析器策略
+15.	private ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory
+Discoverer(发现)
+/** Whether to automatically try to resolve circular references between beans */  是否自动尝试解析bean之间的循环引用
+16.	private boolean allowCircularReferences = true;      org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory
+allow(允许)
+Circular(循环)
+/**
+* Whether to resort to injecting a raw bean instance in case of circular reference, 在循环引用的情况下，是否需要注入一个原始的bean实例，
+* even if the injected bean eventually got wrapped.  即使被注射的豆子最终被包裹起来。
+*/
+17.	private boolean allowRawInjectionDespiteWrapping = false; //注入的时候是否包装  org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory
+RawInjection(再注射)
+Despite(尽管)
+Wrapping(包装)
+/**
+* Dependency types to ignore on dependency check and autowire, as Set of  要在依赖项检查和自动连接时忽略的依赖项类型，作为类对象的集合
+* Class objects: for example, String. Default is none.
+*/
+18.	private final Set<Class<?>> ignoredDependencyTypes = new HashSet<Class<?>>();   自动注入的时候有多个对象不检查，默认是没有的  org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory
+ignore(vt. 驳回诉讼；忽视；不理睬)
+/**
+* Dependency interfaces to ignore on dependency check and autowire, as Set of  要忽略依赖项检查和自动连接的依赖项接口
+* Class objects. By default, only the BeanFactory interface is ignored.  只有BeanFactory接口被忽略。
+*/
+19.	private final Set<Class<?>> ignoredDependencyInterfaces = new HashSet<Class<?>>();   要忽略依赖项检查和自动连接的依赖项接口   org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory
+/** Cache of unfinished FactoryBean instances: FactoryBean name --> BeanWrapper */    未完成的FactoryBean实例的缓存
+20.	private final Map<String, BeanWrapper> factoryBeanInstanceCache =
+			new ConcurrentHashMap<String, BeanWrapper>(16);     FactoryBean的bean还需要包装(就是还有调用getObject方法) org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory
+Instance(实例) 
+/** Cache of filtered PropertyDescriptors: bean Class -> PropertyDescriptor array */  过滤后的属性描述符的缓存
+21.	private final ConcurrentMap<Class<?>, PropertyDescriptor[]> filteredPropertyDescriptorsCache =
+			new ConcurrentHashMap<Class<?>, PropertyDescriptor[]>(64);  //类对象和属性的关系缓存    org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory
+filtered(过滤)
+/** Parent bean factory, for bean inheritance support */  父bean工厂，用于bean继承支持
+22.	private BeanFactory parentBeanFactory;    //父bean工厂，用于bean继承支持    org.springframework.beans.factory.support.AbstractBeanFactory
+/** ClassLoader to resolve bean class names with, if necessary */  类装入器来解析bean类名，如果需要的话
+23.	private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader(); 类加载器     org.springframework.beans.factory.support.AbstractBeanFactory
+/** ClassLoader to temporarily resolve bean class names with, if necessary */   类装入器来临时解析bean类名，如果需要的话
+24.	private ClassLoader tempClassLoader;  临时类加载器  org.springframework.beans.factory.support.AbstractBeanFactory
+temp(临时)
+/** Whether to cache bean metadata or rather reobtain it for every access */  是缓存bean元数据，还是为每次访问重新获取它
+25.	private boolean cacheBeanMetadata = true;    org.springframework.beans.factory.support.AbstractBeanFactory
+metadata(元数据)
+/** Resolution strategy for expressions in bean definition values */  bean定义值中的表达式的解析策略
+26.	private BeanExpressionResolver beanExpressionResolver;  org.springframework.beans.factory.support.AbstractBeanFactory    
+Expression(表达式)
+Resolver(解析器)
+/** Spring ConversionService to use instead of PropertyEditors */  使用Spring ConversionService而不是propertyeditor
+27.	private ConversionService conversionService;  //属性赋值器   org.springframework.beans.factory.support.AbstractBeanFactory
+conversion(转换)
+Editors(编辑)
+/** Custom PropertyEditorRegistrars to apply to the beans of this factory */ 工厂的豆子需要有海关的财产登记员来申请
+28.	private final Set<PropertyEditorRegistrar> propertyEditorRegistrars =
+			new LinkedHashSet<PropertyEditorRegistrar>(4);       org.springframework.beans.factory.support.AbstractBeanFactory
+Custom(定制)
+/** A custom TypeConverter to use, overriding the default PropertyEditor mechanism */  要使用的自定义TypeConverter，覆盖默认的PropertyEditor机制
+29.	private TypeConverter typeConverter; //类型转换   org.springframework.beans.factory.support.AbstractBeanFactory
+custom(自定义) 
+mechanism(机制)
+/** Custom PropertyEditors to apply to the beans of this factory */    适用于这家工厂的豆子的定制规格
+30.	private final Map<Class<?>, Class<? extends PropertyEditor>> customEditors =
+			new HashMap<Class<?>, Class<? extends PropertyEditor>>(4);        org.springframework.beans.factory.support.AbstractBeanFactory
+/** String resolvers to apply e.g. to annotation attribute values */   将例如应用于注释属性值的字符串解析器
+31.	private final List<StringValueResolver> embeddedValueResolvers = new LinkedList<StringValueResolver>();  注解解析器  org.springframework.beans.factory.support.AbstractBeanFactory
+embedded(adj. 嵌入式的；植入的；内含的)
+/** BeanPostProcessors to apply in createBean */  在createBean中应用beanpostprocessor
+32.	private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>(); 后置处理器   org.springframework.beans.factory.support.AbstractBeanFactory
+post(n. 岗位；邮件；标杆vt. 张贴；公布；邮递；布置vi. 快速行进) 
+Processor(处理器)
+/** Indicates whether any InstantiationAwareBeanPostProcessors have been registered */  指示InstantiationAwareBeanPostProcessors是否已注册任何
+33.	private boolean hasInstantiationAwareBeanPostProcessors;  //是否在实例化发送通知            org.springframework.beans.factory.support.AbstractBeanFactory
+Aware(联动)
+/** Indicates whether any DestructionAwareBeanPostProcessors have been registered */  指示是否注册了任何析构awarebeanpostprocessor
+34.	private boolean hasDestructionAwareBeanPostProcessors;   //是否在摧毁发送通知                org.springframework.beans.factory.support.AbstractBeanFactory
+Destruction(n. 破坏，毁灭；摧毁)
+/** Map from scope identifier String to corresponding Scope */ 从范围标识符字符串映射到相应的范围
+35.	private final Map<String, Scope> scopes = new LinkedHashMap<String, Scope>(8);              org.springframework.beans.factory.support.AbstractBeanFactory
+Scope(范围)
+/** Security context used when running with a SecurityManager */ 使用SecurityManager运行时使用的安全上下文
+36.	private SecurityContextProvider securityContextProvider;       org.springframework.beans.factory.support.AbstractBeanFactory
+Provider(生产者)
+/** Map from bean name to merged RootBeanDefinition */    从bean名称映射到合并的RootBeanDefinition
+37.	private final Map<String, RootBeanDefinition> mergedBeanDefinitions =
+			new ConcurrentHashMap<String, RootBeanDefinition>(64);            org.springframework.beans.factory.support.AbstractBeanFactory
+merged(合并)
+/** Names of beans that have already been created at least once */  至少已经创建过一次的bean的名称
+38.	private final Set<String> alreadyCreated = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>(64)); 至少已经创建过一次的bean的名称 org.springframework.beans.factory.support.AbstractBeanFactory
+already(已经)
+/** Names of beans that are currently in creation */  当前正在创建的bean的名称
+39.	private final ThreadLocal<Object> prototypesCurrentlyInCreation =
+			new NamedThreadLocal<Object>("Prototype beans currently in creation");       org.springframework.beans.factory.support.AbstractBeanFactory
+prototypes(原型)
+Currently(正在,现在)
+/** Cache of singleton objects created by FactoryBeans: FactoryBean name --> object */   由factorybean创建的单例对象的缓存
+40.	private final Map<String, Object> factoryBeanObjectCache = new ConcurrentHashMap<String, Object>(16);    org.springframework.beans.factory.support.FactoryBeanRegistrySupport
+/** Logger available to subclasses */     日志输出类
+41.	protected final Log logger = LogFactory.getLog(getClass());    org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+/** Cache of singleton objects: bean name --> bean instance */
+42.	private final Map<String, Object> singletonObjects = new ConcurrentHashMap<String, Object>(64); 单例的bean  org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+/** Cache of singleton factories: bean name --> ObjectFactory */
+43.	private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<String, ObjectFactory<?>>(16); //单列的工厂bean   org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+/** Cache of early singleton objects: bean name --> bean instance */
+44.	private final Map<String, Object> earlySingletonObjects = new HashMap<String, Object>(16); //早期的单例bean  org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+early(adj. 早期的；早熟的)
+/** Set of registered singletons, containing the bean names in registration order */ 一组已注册的单例，包含按注册顺序排列的bean名称
+45.	private final Set<String> registeredSingletons = new LinkedHashSet<String>(64);  org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+/** Names of beans that are currently in creation */  当前正在创建的bean的名称
+46.	private final Set<String> singletonsCurrentlyInCreation =
+			Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>(16)); 单例正在创建的Bean  
+Currently(当前)
+/** Names of beans currently excluded from in creation checks */ 当前在创建检查中被排除在外的bean的名称
+47.	private final Set<String> inCreationCheckExclusions =
+			Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>(16)); 当前在创建检查中被排除在外的bean的名称  org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+Exclusions(除外)
+/** List of suppressed Exceptions, available for associating related causes */ 被抑制的异常列表，可用于关联相关原因
+48.	private Set<Exception> suppressedExceptions;           org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+suppressed(v. 镇压；阻碍发展；禁止（发表、传播）；封锁；抑制；阻止；部分消除（电干扰）；自觉抑制（不愉快的记忆）（suppress 的过去时和过去分词）)
+Exceptions(n. 例外；异议)
+/** Flag that indicates whether we're currently within destroySingletons */  标志，指示我们当前是否在destroysingleton中
+49.	private boolean singletonsCurrentlyInDestruction = false;    org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+Destruction(n. 破坏，毁灭；摧毁)
+/** Disposable bean instances: bean name --> disposable instance */  一次性bean实例
+50.	private final Map<String, Object> disposableBeans = new LinkedHashMap<String, Object>();   org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+disposable(一次性)
+/** Map between containing bean names: bean name --> Set of bean names that the bean contains */  包含bean名称之间的映射
+51.	private final Map<String, Set<String>> containedBeanMap = new ConcurrentHashMap<String, Set<String>>(16); Bean与Bean之间的依赖  org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+contained(adj. 泰然自若的，从容的；被控制的)
+/** Map between dependent bean names: bean name --> Set of dependent bean names */ 从属bean名称之间的映射
+52.	private final Map<String, Set<String>> dependentBeanMap = new ConcurrentHashMap<String, Set<String>>(64);  org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+dependent(依赖)
+/** Map between depending bean names: bean name --> Set of bean names for the bean's dependencies */  在依赖bean名称之间映射
+53.	private final Map<String, Set<String>> dependenciesForBeanMap = new ConcurrentHashMap<String, Set<String>>(64); Bean名称的依赖关系 org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+dependencies(依赖性)
+/** Map from alias to canonical name */  从别名映射到规范名称
+54.	private final Map<String, String> aliasMap = new ConcurrentHashMap<String, String>(16); org.springframework.core.SimpleAliasRegistry
+
+
+
+
+
+
+
